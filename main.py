@@ -29,9 +29,6 @@ def stream(price):
             print("UP: "+ str(get_price(r)), "BY "+ str(get_price(r) - last_price))
         elif (get_price(r) < last_price):
             print("DOWN: "+ str(get_price(r)), "BY "+str(last_price-get_price(r)))
-        else:
-            print("SAME: " + str(last_price))
-
         last_price = get_price(r)
         stream(last_price)
 
