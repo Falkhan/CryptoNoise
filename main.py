@@ -10,12 +10,11 @@ def main():
     # Get a request from an API
     r = requests.get("https://blockchain.info/ticker")
     if (r.status_code == 200):
-        print("Success! Site is up.")
+        print("Success! Site is up. Monitoring...")
     elif (r.status_code == 400):
         print("Bad request")
-    data = r.json()
-    last_price = data["USD"]["last"]
-    stream(last_price)
+    print(get_price(r))
+    stream(get_price(r))
 
 def stream(price):
     last_price = price
@@ -29,8 +28,9 @@ def stream(price):
             print("UP: "+ str(get_price(r)), "BY "+ str(get_price(r) - last_price))
         elif (get_price(r) < last_price):
             print("DOWN: "+ str(get_price(r)), "BY "+str(last_price-get_price(r)))
-        last_price = get_price(r)
-        stream(last_price)
+        return stream(get_price(r))
+    else:
+        return
 
 if __name__ == '__main__':
     main()
